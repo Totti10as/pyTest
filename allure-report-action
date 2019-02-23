@@ -1,0 +1,3 @@
+pytest --alluredir results  |  The action is running pytest script and generating report files (json,txt, imgage)
+
+allure serve results  | generating and combining all files into report under http server
