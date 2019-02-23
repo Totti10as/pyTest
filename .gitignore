@@ -3,7 +3,6 @@
 Pages/__pycache__/
 Tests/__pycache__/
 __pycache__/
-allure-report-action
 drivers/
 results/
 venv/
