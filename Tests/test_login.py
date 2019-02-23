@@ -9,7 +9,9 @@ from allure_commons.types import AttachmentType
 import sys
 
 
-
+@allure.feature('Login')
+@allure.story('Enter into user account')
+@allure.severity('blocker')
 class TestLoign():
     @pytest.fixture()
     def setup_method(self):
@@ -25,10 +27,8 @@ class TestLoign():
         print("Test Completed")
         print(sys.path)
 
-    @allure.feature('Login')
-    @allure.story('Enter into user account')
-    @allure.severity('blocker')
-    def test_login_valid(self, setup_method):
+    @allure.title("Login as valid user")
+    def test_01_login_valid(self, setup_method):
         driver.get("https://opensource-demo.orangehrmlive.com")
 
         with allure.step('Open login page'):
@@ -40,7 +40,8 @@ class TestLoign():
         with allure.step('Click submit'):
             login.click_login()
         with allure.step("Get Screenshot"):
-            allure.attach(driver.get_screenshot_as_png(), name='Screenshot-Homepage', attachment_type=AttachmentType.PNG)
+            allure.attach(driver.get_screenshot_as_png(), name='Screenshot-Homepage',
+                          attachment_type=AttachmentType.PNG)
 
         homepage = HomePage(driver)
         with allure.step('On Home page click Welcome, a list of links has been opened '):
@@ -50,6 +51,24 @@ class TestLoign():
             time.sleep(2)
         with allure.step("Get exit Screenshot"):
             allure.attach(driver.get_screenshot_as_png(), name='Screenshot-Exit', attachment_type=AttachmentType.PNG)
+
+    @allure.title("Invalid login Scenario with wrong username and valid password")
+    def test_02_invalid_username(self, setup_method):
+        driver.get("https://opensource-demo.orangehrmlive.com")
+
+        with allure.step('Open login page'):
+            login = LoginPage(driver)
+        with allure.step('Insert invalid username'):
+            login.enter_username("admin1")
+        with allure.step('Insert password'):
+            login.enter_password("admin123")
+        with allure.step('Click submit'):
+            login.click_login()
+        with allure.step("Get Screenshot"):
+            allure.attach(driver.get_screenshot_as_png(), name='Screenshot-Homepage',
+                          attachment_type=AttachmentType.PNG)
+        with allure.step("Validate invalid message"):
+            assert "Invalid credentials123" == login.check_invalid_username_message()
 
     # def test_teardown(self):
     #     driver.close()
