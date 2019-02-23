@@ -4,6 +4,7 @@ import time
 import pytest
 import allure
 from Pages.loginpage import LoginPage
+from Pages.homepage import HomePage
 from allure_commons.types import AttachmentType
 import sys
 
@@ -11,7 +12,7 @@ import sys
 
 class TestLoign():
     @pytest.fixture()
-    def test_setup(self):
+    def setup_method(self):
         global driver
         driver = webdriver.Chrome(
             executable_path='C:/Users/Totti10/PycharmProjects/POMProcject/drivers/chromedriver.exe')
@@ -27,7 +28,7 @@ class TestLoign():
     @allure.feature('Login')
     @allure.story('Enter into user account')
     @allure.severity('blocker')
-    def test_login_valid(self, test_setup):
+    def test_login_valid(self, setup_method):
         driver.get("https://opensource-demo.orangehrmlive.com")
 
         with allure.step('Open login page'):
@@ -39,18 +40,16 @@ class TestLoign():
         with allure.step('Click submit'):
             login.click_login()
         with allure.step("Get Screenshot"):
-            allure.attach(driver.get_screenshot_as_png(), name='Screenshot', attachment_type=AttachmentType.PNG)
+            allure.attach(driver.get_screenshot_as_png(), name='Screenshot-Homepage', attachment_type=AttachmentType.PNG)
 
-        # homepage = HomePage(driver)
-        # homepage.click_welcome()
-        # homepage.click_logout()
-        # time.sleep(2)
-
-        # driver.find_element_by_id("txtUsername").send_keys("admin")
-        # driver.find_element_by_id("txtPassword").send_keys("admin123")
-        # driver.find_element_by_name("Submit").click()
-        # driver.find_element_by_id("welcome").click()
-        # driver.find_element_by_link_text("Logout").click()
+        homepage = HomePage(driver)
+        with allure.step('On Home page click Welcome, a list of links has been opened '):
+            homepage.click_welcome()
+        with allure.step("Select a Logout link and click to exit the system "):
+            homepage.click_logout()
+            time.sleep(2)
+        with allure.step("Get exit Screenshot"):
+            allure.attach(driver.get_screenshot_as_png(), name='Screenshot-Exit', attachment_type=AttachmentType.PNG)
 
     # def test_teardown(self):
     #     driver.close()
