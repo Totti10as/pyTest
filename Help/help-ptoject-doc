@@ -1,0 +1,22 @@
+'C:/Users/Totti10/PycharmProjects/POMProcject/drivers/chromedriver.exe'
+
+
+ from selenium import webdriver
+# import time
+# import pytest
+# import sys
+#
+# @pytest.fixture(scope="function")
+# def get_driver():
+#     global driver
+#     driver = webdriver.Chrome(
+#         executable_path='C:/Users/Totti10/PycharmProjects/POMProcject/drivers/chromedriver.exe')
+#     driver.implicitly_wait(10)
+#     driver.set_window_size(1200, 800)
+#     driver.get("https://opensource-demo.orangehrmlive.com")
+#     yield
+#     time.sleep(5)
+#     driver.close()
+#     driver.quit()
+#     print("Test Completed")
+#     print(sys.path)
