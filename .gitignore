@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+Pages/__pycache__/
+Tests/__pycache__/
+__pycache__/
+allure-report-action
+drivers/
+results/
+venv/
